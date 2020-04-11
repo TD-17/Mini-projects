@@ -1,67 +1,87 @@
 #include<iostream>
 #include<fstream>
+#include <iomanip>
 
 using namespace std;
 
 class record
 {
 	int acc_no;
-	char firstName[50];
-	char lastName[50];
+	char name[50];
 	char type;
 	int deposit;
 	public:
 		void write_account();
-	    int show_no();
-	    void display();
+	    int show_no() const;
+	    void display() const;
 	    void change();
+	    void show_all() const;
+	    void dep(int);
+	    void withdraw(int);
+	    int show_deposit() const;
+	    char show_type() const;
 };
 
 void record::write_account()
 {
-	cout<<"Enter account number"<<endl;
+	cout<<"\nEnter account number"<<endl;
 	cin>>acc_no;
-	
-	cout<<"Enter you first name"<<endl;
-	cin>>firstName;
+
+	cout<<"\nEnter you name"<<endl;
+	cin.ignore();
+	cin.getline(name,50);
 		
-	cout<<"Enter your last name"<<endl;
-	cin>>lastName;
-			
-    cout<<"Enter account type"<<endl;
+    cout<<"\nEnter account type (C/S)"<<endl;
     cin>>type;
     type=toupper(type);
             
-	cout<<"Enter the initial ammount"<<endl;
+	cout<<"\nEnter the initial ammount (for S account atleast 500 and for C account atleast 1000)"<<endl;
 	cin>>deposit;		
 }
-int record::show_no()
+int record::show_no() const
 {
 	return acc_no;
 }
-void record::display()
+void record::display() const
 {
-	cout<<"Your account number "<<acc_no<<endl;
-	cout<<"Your name "<<firstName<<" "<<lastName<<endl;
-	cout<<"Account type "<<type<<endl;
-	cout<<"Your balance "<<deposit<<endl;
+	cout<<"\nYour account number "<<acc_no<<endl;
+	cout<<"\nYour name "<<name<<endl;
+	cout<<"\nAccount type "<<type<<endl;
+	cout<<"\nYour balance "<<deposit<<endl;
 }
 void record::change()
 {
-	cout<<"Account number"<<acc_no<<endl;
+	cout<<"\nAccount number"<<acc_no<<endl;
 	
-	cout<<"Enter you first name"<<endl;
-	cin>>firstName;
-		
-	cout<<"Enter your last name"<<endl;
-	cin>>lastName;
+	cout<<"\nEnter your name"<<endl;
+	cin>>name;
 			
-    cout<<"Enter account type"<<endl;
+    cout<<"\nEnter account type"<<endl;
     cin>>type;
     type=toupper(type);
             
-	cout<<"Enter the initial ammount"<<endl;
+	cout<<"\nEnter the initial ammount"<<endl;
 	cin>>deposit;		
+}
+void record::show_all() const
+{
+	cout<<setw(4)<<acc_no<<setw(20)<<name<<setw(8)<<type<<setw(8)<<deposit<<endl;
+}
+void record::dep(int amt)
+{
+	deposit+=amt;
+}
+void record::withdraw(int amt)
+{
+	deposit-=amt;
+}
+int record::show_deposit() const
+{
+	return deposit;
+}
+char record::show_type() const
+{
+	return type;
 }
 
 
@@ -82,7 +102,7 @@ void show_account(int n)
 	infile.open("account.dat",ios::binary);
 	if(!infile)
 	{
-		cout<<"Error in opening the file"<<endl;
+		cout<<"\nError in opening the file"<<endl;
 		return;
 	}
 	cout<<"\n.....Here are your details....."<<endl;
@@ -98,7 +118,7 @@ void show_account(int n)
 	infile.close();
 	if(flag==false)
 	{
-		cout<<"This account number does not exist"<<endl;
+		cout<<"\nThis account number does not exist"<<endl;
 	}
 	
 }
@@ -110,7 +130,7 @@ void modify(int n)
 	file.open("account.dat",ios::binary|ios::in|ios::out);
 	if(!file)
 	{
-		cout<<"Error in opening the file"<<endl;
+		cout<<"\nError in opening the file"<<endl;
 		return;
 	}
 	while(file.read(reinterpret_cast<char *>(&r),sizeof(record)))
@@ -122,14 +142,14 @@ void modify(int n)
 			pos=(-1)*static_cast<int>(sizeof(record));
 			file.seekp(pos,ios::cur);
 			file.write(reinterpret_cast<char *>(&r),sizeof(record));
-			cout<<"Your record has updated"<<endl;
+			cout<<"\nYour record has updated"<<endl;
 			flag=true;
 			break;
 		}
 	}
 	file.close();
 	if(flag==false)
-	 cout<<"Record with account number "<<n<<" is not found"<<endl;
+	 cout<<"\nRecord with account number "<<n<<" is not found"<<endl;
 }
 void delete_record(int n)
 {
@@ -141,7 +161,7 @@ void delete_record(int n)
     fout.open("temp.dat",ios::binary);
     if(!fin)
     {
-    	cout<<"Error in opening of record file"<<endl;
+    	cout<<"\nError in opening of record file"<<endl;
     	return;
 	}
 	fin.seekg(0,ios::beg);
@@ -162,28 +182,131 @@ void delete_record(int n)
 	rename("Temp.dat","account.dat");
 	if(flag==true)
 	{
-		cout<<"Record deleted"<<endl;
+		cout<<"\nRecord deleted"<<endl;
 	}
 	else
 	{
-		cout<<"Record not found"<<endl;
+		cout<<"\nRecord not found"<<endl;
 	}
 
+}
+void display()
+{
+	record r;
+	ifstream fin;
+	fin.open("account.dat",ios::binary);
+	if(!fin)
+	{
+		cout<<"\nError in opening the file"<<endl;
+		return;
+	}
+	cout<<"\n\nHere is the whole record"<<endl;
+	cout<<"****************************************************\n";
+	cout<<"A/c No.        Name           Type  Balance\n";
+	cout<<"****************************************************\n";
+	while(fin.read(reinterpret_cast<char *>(&r),sizeof(record)))
+	{
+		r.show_all();
+	}
+	fin.close();
+	
+}
+void withdraw_deposit(int n,int ch)
+{
+	record r;
+	int amt;
+	fstream file;
+	bool flag=false;
+	file.open("account.dat",ios::binary|ios::in|ios::out);
+	if(!file)
+	{
+		cout<<"\nError in opening of the file"<<endl;
+		return;
+	}
+	while(file.read(reinterpret_cast<char *>(&r),sizeof(record)))
+	{
+		if(r.show_no()==n)
+		{
+			r.display();
+			if(ch==1)
+			{
+				cout<<"\nENTER THE AMOUNT YOU WANT TO DEPOSIT IN YOUR ACCOUNT"<<endl;
+				cin>>amt;
+				r.dep(amt);
+			}
+			if(ch==2)
+			{
+				cout<<"\nENTER THE AMOUNT YOU WANT TO WITHDRAW FROM YOUR ACCOUNT"<<endl;
+				cin>>amt;
+				int bal=r.show_deposit()-amt;
+				if((bal<500 && r.show_type()=='S') || (bal<1000 && r.show_type()=='C'))
+				 cout<<"\nInsufficient balance"<<endl;
+				else 
+				 r.withdraw(amt);
+			}
+			int pos=(-1)*static_cast<int>(sizeof(r));
+			file.seekp(pos,ios::cur);
+			file.write(reinterpret_cast<char *> (&r), sizeof(record));
+			cout<<"\n\n Record Updated"<<endl;
+			flag=true;
+		}
+	}
+	file.close();
+	if(flag==false)
+	cout<<"\n Record Not Found "<<endl;
 }
 
 int main()
 {
-//	create_account();
-//	create_account();
-//	show_account(1);
-//	show_account(2);
-//	modify(1);
-//	show_account(1);
-//	modify(4);
-//	modify(5);
-delete_record(1);
-delete_record(2);
-delete_record(4);
+	int num;
+	char choice;
+	do
+	{
+		cout<<"\n\n\n\t\tMAIN MENU";
+		cout<<"\n\n\t\t1. NEW ACCOUNT";
+		cout<<"\n\n\t\t2. DEPOSIT AMOUNT";
+		cout<<"\n\n\t\t3. WITHDRAW AMOUNT";
+		cout<<"\n\n\t\t4. BALANCE ENQUIRY";
+		cout<<"\n\n\t\t5. ALL ACCOUNT HOLDER LIST";
+		cout<<"\n\n\t\t6. CLOSE AN ACCOUNT";
+		cout<<"\n\n\t\t7. MODIFY AN ACCOUNT";
+		cout<<"\n\n\t\t8. EXIT";
+		cout<<"\n\n\t\tSelect the Option (1-8) "<<endl;
+		cin>>choice;
+		switch(choice)
+		{
+		case '1':
+			create_account();
+			break;
+		case '2':
+			cout<<"\n\n\tEnter The account No. : "; cin>>num;
+			withdraw_deposit(num, 1);
+			break;
+		case '3':
+			cout<<"\n\n\tEnter The account No. : "; cin>>num;
+			withdraw_deposit(num, 2);
+			break;
+		case '4': 
+			cout<<"\n\n\tEnter The account No. : "; cin>>num;
+			show_account(num);
+			break;
+		case '5':
+			display();
+			break;
+		case '6':
+			cout<<"\n\n\tEnter The account No. : "; cin>>num;
+			delete_record(num);
+			break;
+		 case '7':
+			cout<<"\n\n\tEnter The account No. : "; cin>>num;
+			modify(num);
+			break;
+		 case '8':
+			cout<<"\n\n\tThank You :)";
+			break;
+		 default :cout<<"\a";
+		}
+	}while(choice!='8');
 	return 0;
 }
 
