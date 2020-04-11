@@ -131,6 +131,45 @@ void modify(int n)
 	if(flag==false)
 	 cout<<"Record with account number "<<n<<" is not found"<<endl;
 }
+void delete_record(int n)
+{
+	bool flag=false;
+	record r;
+    ifstream fin;
+    ofstream fout;
+    fin.open("account.dat",ios::binary);
+    fout.open("temp.dat",ios::binary);
+    if(!fin)
+    {
+    	cout<<"Error in opening of record file"<<endl;
+    	return;
+	}
+	fin.seekg(0,ios::beg);
+	while(fin.read(reinterpret_cast<char *>(&r),sizeof(record)))
+	{
+		if(r.show_no()==n)
+		{
+			flag=true;
+		}
+		if(r.show_no()!=n)
+		{
+			fout.write(reinterpret_cast<char *>(&r),sizeof(record));
+		}
+	}
+	fin.close();
+	fout.close();
+	remove("account.dat");
+	rename("Temp.dat","account.dat");
+	if(flag==true)
+	{
+		cout<<"Record deleted"<<endl;
+	}
+	else
+	{
+		cout<<"Record not found"<<endl;
+	}
+
+}
 
 int main()
 {
@@ -140,8 +179,11 @@ int main()
 //	show_account(2);
 //	modify(1);
 //	show_account(1);
-	modify(4);
-	modify(5);
+//	modify(4);
+//	modify(5);
+delete_record(1);
+delete_record(2);
+delete_record(4);
 	return 0;
 }
 
