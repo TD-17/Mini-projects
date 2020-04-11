@@ -240,7 +240,11 @@ void withdraw_deposit(int n,int ch)
 				cin>>amt;
 				int bal=r.show_deposit()-amt;
 				if((bal<500 && r.show_type()=='S') || (bal<1000 && r.show_type()=='C'))
+				{
 				 cout<<"\nInsufficient balance"<<endl;
+				 return;	
+				}
+				 
 				else 
 				 r.withdraw(amt);
 			}
@@ -262,16 +266,18 @@ int main()
 	char choice;
 	do
 	{
-		cout<<"\n\n\n\t\tMAIN MENU";
-		cout<<"\n\n\t\t1. NEW ACCOUNT";
-		cout<<"\n\n\t\t2. DEPOSIT AMOUNT";
-		cout<<"\n\n\t\t3. WITHDRAW AMOUNT";
-		cout<<"\n\n\t\t4. BALANCE ENQUIRY";
-		cout<<"\n\n\t\t5. ALL ACCOUNT HOLDER LIST";
-		cout<<"\n\n\t\t6. CLOSE AN ACCOUNT";
-		cout<<"\n\n\t\t7. MODIFY AN ACCOUNT";
-		cout<<"\n\n\t\t8. EXIT";
-		cout<<"\n\n\t\tSelect the Option (1-8) "<<endl;
+		cout<<"\n\n\n\t\t\t\tMAIN MENU"<<endl;
+		cout<<"\t\t\t\t=========";
+		cout<<"\n\n\t\t\t\t1. NEW ACCOUNT";
+		cout<<"\n\n\t\t\t\t2. DEPOSIT AMOUNT";
+		cout<<"\n\n\t\t\t\t3. WITHDRAW AMOUNT";
+		cout<<"\n\n\t\t\t\t4. BALANCE ENQUIRY";
+		cout<<"\n\n\t\t\t\t5. ALL ACCOUNT HOLDER LIST";
+		cout<<"\n\n\t\t\t\t6. CLOSE AN ACCOUNT";
+		cout<<"\n\n\t\t\t\t7. MODIFY AN ACCOUNT";
+		cout<<"\n\n\t\t\t\t8. EXIT";
+		cout<<"\n\n\t\t\t\tSelect the Option (1-8) "<<endl;
+		cout<<"\t\t\t............................................\n\n";
 		cin>>choice;
 		switch(choice)
 		{
@@ -302,7 +308,7 @@ int main()
 			modify(num);
 			break;
 		 case '8':
-			cout<<"\n\n\tThank You :)";
+			cout<<"\n\n\tThank You :)"<<endl;
 			break;
 		 default :cout<<"\a";
 		}
