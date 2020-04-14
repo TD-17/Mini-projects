@@ -49,5 +49,79 @@ void snakeLadder::gamescore(char name1[],char name2[],int p1,int p2)
 	draw_line(50,'_');
 	cout<<endl;
 }
-
+void snakeLadder::play_dice(int &score)
+{
+	int dice;
+	dice = random(6) +1;
+	cout<<"\nYou got "<<dice<<" point !! ";
+	score=score+dice;
+	cout<<"Now you are at position "<<score;
+	switch(score)
+	{
+		
+    case 98:
+        score = 28;
+        break;
+    case 95:
+        score = 24;
+        break;
+    case 92:
+        score = 51;
+        break;
+    case 83:
+        score = 19;
+        break;
+    case 73:
+        score = 1;
+        break;
+    case 69:
+        score = 33;
+        break;
+    case 64:
+        score = 36;
+        break;
+    case 59:
+        score = 17;
+        break;
+    case 55:
+        score = 7;
+        break;
+    case 52:
+        score = 11;
+        break;
+    case 48:
+        score = 9;
+        break;
+    case 46:
+        score = 5;
+        break;
+    case 44:
+        score = 22;
+        break;
+    case 8:
+        score = 26;
+        break;
+    case 21:
+        score = 82;
+        break;
+    case 43:
+        score = 77;
+        break;
+    case 50:
+        score = 91;
+        break;
+    case 54:
+        score = 93;
+        break;
+    case 62:
+        score = 96;
+        break;
+    case 66:
+        score = 87;
+        break;
+    case 80:
+        score = 100;
+	}
+	
+}
 
