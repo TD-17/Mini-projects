@@ -38,4 +38,16 @@ void snakeLadder::board()
 	draw_line(50,'-');
 	cout<<endl;
 } 
+void snakeLadder::gamescore(char name1[],char name2[],int p1,int p2)
+{
+	cout<<"\n";
+	draw_line(50,'~');
+	cout<<"\n\t\tGAME STATUS\n";
+	draw_line(50,'~');
+	cout<<"\n\t--->"<<name1<<"is at position"<<p1<<endl;
+	cout<<"\t--->"<<name2<<"is at position"<<p2<<endl;
+	draw_line(50,'_');
+	cout<<endl;
+}
+
 
