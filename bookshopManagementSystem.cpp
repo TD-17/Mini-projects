@@ -15,6 +15,23 @@ public:
 void getdata();
 void show();
 };
+void book::getdata()
+{
+ cout<<"\nENTER DETAILS ABOUT BOOK U WANT TO PURCHASE  :\t";
+ cout<<"\n\n\n\t\tEnter Name Of Book  :\t";
+ cin>>name;
+ cout<<"\n\t\tEnter Name Of Author    :\t";
+ cin>>author;
+ cout<<"\n\t\tEnter No. Of Copies  :\t";
+ cin>>a;
+}
+void book::show()
+{
+ 
+cout<<"BOOK    :"<<name<<endl;
+cout<<"AUTHOR  :"<<author<<endl;
+cout<<"COPIES  :"<<a<<endl;
+}
 
 int main()
 {
