@@ -35,6 +35,19 @@ cout<<"COPIES  :"<<a<<endl;
 void graph()
 {
 	int x,y;
+	setcolor(YELLOW);
+	rectangle(0,0,760,30);
+	setfillstyle(XHATCH_FILL,RED);
+	floodfill(230,15,YELLOW);
+	rectangle(760,0,800,760);
+	setfillstyle(XHATCH_FILL,RED);
+	floodfill(780,230,YELLOW);
+	rectangle(30,760,800,800);
+	setfillstyle(XHATCH_FILL,RED);
+	floodfill(385,780,YELLOW);
+	rectangle(0,30,30,800);
+	setfillstyle(XHATCH_FILL,RED);
+	floodfill(15,385,YELLOW);
 	x=getmaxx()/2;
 	y=getmaxy()/2;
 	setcolor(4);
@@ -52,8 +65,9 @@ void graph()
 	for(i=0;i<=35;i++)
 	{
 		ellipse(x,y,180,360,60,20+i);
-		delay(100);
+		delay(60);
 	}
+	
 
 
 }
