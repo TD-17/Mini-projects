@@ -85,6 +85,9 @@ void graph()
 		delay(80);
 		setcolor(RED);
 	}
+	setcolor(WHITE);
+	settextstyle(9,0,2);
+    outtextxy(650,766,"Press Enter");
 	getch();
 	clearviewport();
 }
@@ -92,9 +95,27 @@ void graph()
 int main()
 {
 	initwindow(800,800,"Book-Shop");
-	graph(); 
-	
-	getch();
+	graph();
+	fstream file;
+    file.open("book",ios::in|ios::out|ios::app|ios::ate|ios::binary);
+    setcolor(WHITE);
+    rectangle(10,10,780,780);
+    setfillstyle(10,YELLOW);
+    floodfill(400,400,WHITE);
+    settextstyle(10,HORIZ_DIR,6);
+    outtextxy(70,15,"WHAT DO U WANT TO DO:");
+    settextstyle(SANS_SERIF_FONT,0,3); 
+	outtextxy(250,100,"1 . TO BUY");
+    outtextxy(250,200,"2 . TO SHOW ALL BOOKS");
+    outtextxy(250,300,"3 . TO CHECK AVAILABILITY");
+    outtextxy(250,400,"4 . TO MODIFY");
+    outtextxy(250,500,"5 . TO DELETE");
+    outtextxy(250,600,"6 . TO EXIT");
+    setcolor(3);
+    settextstyle(7,0,6);
+    delay(1000);
+    outtextxy(100,720, "ENTER UR CHOICE:");
+    getch(); 
 	return 0;
 }
 
