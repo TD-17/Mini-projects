@@ -65,11 +65,28 @@ void graph()
 	for(i=0;i<=35;i++)
 	{
 		ellipse(x,y,180,360,60,20+i);
-		delay(60);
+		if(i==5)
+		{
+			setcolor(WHITE);
+	        settextstyle(9,0,8);
+            outtextxy(160,90,"Welcome");
+		}
+		if(i==15)
+		{
+	        settextstyle(9,0,6);
+            outtextxy(365,210,"to");
+		}
+		if(i==30)
+		{
+			setcolor(WHITE);
+	        settextstyle(9,0,8);
+            outtextxy(60,600,"BOOK-SHOP");
+		}
+		delay(80);
+		setcolor(RED);
 	}
-	
-
-
+	getch();
+	clearviewport();
 }
 
 int main()
