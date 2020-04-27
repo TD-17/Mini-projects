@@ -122,14 +122,12 @@ int main()
     cout<<"Enter your choice"<<endl;
 	cout<<"************************************************************************"<<endl;  
     cin>>a;
+    book b;
     switch(a)
     {
     	case 1:
-//    	 initwindow(800,800,"Book-Shop");
-//    	 rectangle(10,10,780,780);
-//		 setbkcolor(RED);
-		 book b;
-     	 ofstream outFile;
+    	{
+		 ofstream outFile;
 	     outFile.open("book.dat",ios::binary|ios::app);
 	     b.getdata();
 	     outFile.write(reinterpret_cast<char *> (&b), sizeof(book));
@@ -141,6 +139,24 @@ int main()
 		 goto z;
 		 else
 		 break;
+		 break; 		
+		}
+    
+     	 
+		case 2:
+		{
+		 ifstream fin;
+	     fin.open("book.dat",ios::binary);
+       	 cout<<"\n\nHere is the whole record"<<endl;
+	 
+	     while(fin.read(reinterpret_cast<char *>(&b),sizeof(book)))
+      	 {
+	    	b.show();
+	     }
+	     fin.close();	
+	    } 
+	      
+        
 	}
   
 	return 0;
