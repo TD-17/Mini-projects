@@ -15,6 +15,7 @@ char author[20];
 int a;
 void getdata();
 void show();
+void change();
 };
 void book::getdata()
 {
@@ -31,6 +32,16 @@ void book::show()
 cout<<"BOOK    :"<<name<<endl;
 cout<<"AUTHOR  :"<<author<<endl;
 cout<<"COPIES  :"<<a<<endl;
+}
+void book::change()
+{
+ cout<<"\nENTER NEW DETAILS FOR THIS BOOK  :\t";	
+ cout<<"\n\n\n\t\tEnter new name Of Book      :\t";
+ cin>>name;
+ cout<<"\n\t\tEnter new name Of Author    :\t";
+ cin>>author;
+ cout<<"\n\t\tEnter new value of number Of Copies     :\t";
+ cin>>a;
 }
 
 
@@ -181,7 +192,7 @@ int main()
 		    cout<<"\nError in opening the file"<<endl;
 		    break;
 	      }
-	        cout<<"\n\n\n          Enter book name whose record to be seen  :";
+	        cout<<"\n\n\n          Enter book name whose record you want to see :";
             cin>>name1;
 	      while(file.read(reinterpret_cast<char *>(&b),sizeof(book)))
 	      {
@@ -205,7 +216,44 @@ int main()
 		 else
 		 break;
  	
-		}	
+		}
+		
+		
+		case 4:
+		{
+			book b;
+			char name1[20];
+	        bool flag=false;
+	        fstream file;
+	        file.open("book.dat",ios::binary|ios::in|ios::out);
+	        if(!file)
+         	{
+		      cout<<"\nError in opening the file"<<endl;
+		      break;
+	        }
+	        cout<<"\n\n\n          Enter book name whose record you want to update  :";
+	        fflush(stdin);
+            cin>>name1;
+	        while(file.read(reinterpret_cast<char *>(&b),sizeof(book)))
+	        {
+	        	cout<<name1<<b.name<<endl;
+		      if(strcmp(name1,b.name)==0)
+		      {
+			    int pos;
+			    b.change();
+			    pos=(-1)*static_cast<int>(sizeof(book));
+			    file.seekp(pos,ios::cur);
+			    file.write(reinterpret_cast<char *>(&b),sizeof(book));
+			    cout<<"\nDetails have updated"<<endl;
+			    flag=true;
+			    break;
+	          }
+	        }
+	        file.close();
+	        if(flag==false)
+	        cout<<"\nThis book is not found"<<endl;
+			
+	    }	
 	    	
 	      
         
