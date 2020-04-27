@@ -9,10 +9,10 @@ using namespace std;
 
 class book
 {
+public:
 char name[20];
 char author[20];
 int a;
-public:
 void getdata();
 void show();
 };
@@ -32,6 +32,7 @@ cout<<"BOOK    :"<<name<<endl;
 cout<<"AUTHOR  :"<<author<<endl;
 cout<<"COPIES  :"<<a<<endl;
 }
+
 
 void graph()
 {
@@ -138,7 +139,6 @@ int main()
 		 if(ans=='Y' || ans=='y')
 		 goto z;
 		 else
-		 break;
 		 break; 		
 		}
     
@@ -147,14 +147,66 @@ int main()
 		{
 		 ifstream fin;
 	     fin.open("book.dat",ios::binary);
+	     if(!fin)
+	      {
+		    cout<<"\nError in opening the file"<<endl;
+		    break;
+	      }
        	 cout<<"\n\nHere is the whole record"<<endl;
 	 
 	     while(fin.read(reinterpret_cast<char *>(&b),sizeof(book)))
       	 {
 	    	b.show();
 	     }
-	     fin.close();	
+	     fin.close();
+	     char ans;
+		 cout<<"Do you want to continue(y/n)"<<endl;
+		 cin>>ans;
+		 if(ans=='Y' || ans=='y')
+		 goto z;
+		 else
+		 break;
 	    } 
+	    
+	    
+	    case 3:
+	    {
+	      book b;
+	      char name1[20];
+	      bool flag=false;
+	      fstream file;
+	      file.open("book.dat",ios::binary|ios::in|ios::out);
+	      if(!file)
+	      {
+		    cout<<"\nError in opening the file"<<endl;
+		    break;
+	      }
+	        cout<<"\n\n\n          Enter book name whose record to be seen  :";
+            cin>>name1;
+	      while(file.read(reinterpret_cast<char *>(&b),sizeof(book)))
+	      {
+		    if(strcmp(name1,b.name)==0)
+		    {
+		    	cout<<"*****THIS BOOK IS AVAILABLE*****"<<endl;
+		        b.show();
+		    	flag=true;
+			    break;
+		    }
+	      }
+	     file.close();
+	     if(flag==false)
+	         cout<<"\nThis book is not found"<<endl;
+	         
+	     char ans;
+		 cout<<"Do you want to continue(y/n)"<<endl;
+		 cin>>ans;
+		 if(ans=='Y' || ans=='y')
+		 goto z;
+		 else
+		 break;
+ 	
+		}	
+	    	
 	      
         
 	}
