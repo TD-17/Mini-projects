@@ -4,6 +4,7 @@
 #include<fstream>
 #include<graphics.h>
 #include<iomanip>
+#include<conio.h>
 using namespace std;
 
 class book
@@ -18,11 +19,11 @@ void show();
 void book::getdata()
 {
  cout<<"\nENTER DETAILS ABOUT BOOK U WANT TO PURCHASE  :\t";
- cout<<"\n\n\n\t\tEnter Name Of Book  :\t";
+ cout<<"\n\n\n\t\tEnter Name Of Book      :\t";
  cin>>name;
  cout<<"\n\t\tEnter Name Of Author    :\t";
  cin>>author;
- cout<<"\n\t\tEnter No. Of Copies  :\t";
+ cout<<"\n\t\tEnter No. Of Copies     :\t";
  cin>>a;
 }
 void book::show()
@@ -94,10 +95,9 @@ void graph()
 
 int main()
 {
+	z:
 	initwindow(800,800,"Book-Shop");
 	graph();
-	fstream file;
-    file.open("book",ios::in|ios::out|ios::app|ios::ate|ios::binary);
     setcolor(WHITE);
     rectangle(10,10,780,780);
     setfillstyle(10,YELLOW);
@@ -114,8 +114,35 @@ int main()
     setcolor(3);
     settextstyle(7,0,6);
     delay(1000);
-    outtextxy(100,720, "ENTER UR CHOICE:");
+    outtextxy(140,720, "PRESS ENTER:");
     getch(); 
+    closegraph();
+	int a; 
+	cout<<"************************************************************************"<<endl; 
+    cout<<"Enter your choice"<<endl;
+	cout<<"************************************************************************"<<endl;  
+    cin>>a;
+    switch(a)
+    {
+    	case 1:
+//    	 initwindow(800,800,"Book-Shop");
+//    	 rectangle(10,10,780,780);
+//		 setbkcolor(RED);
+		 book b;
+     	 ofstream outFile;
+	     outFile.open("book.dat",ios::binary|ios::app);
+	     b.getdata();
+	     outFile.write(reinterpret_cast<char *> (&b), sizeof(book));
+	     outFile.close();
+	     char ans;
+		 cout<<"Do you want to continue(y/n)"<<endl;
+		 cin>>ans;
+		 if(ans=='Y' || ans=='y')
+		 goto z;
+		 else
+		 break;
+	}
+  
 	return 0;
 }
 
