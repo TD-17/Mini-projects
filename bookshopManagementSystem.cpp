@@ -36,9 +36,9 @@ cout<<"COPIES  :"<<a<<endl;
 void book::change()
 {
  cout<<"\nENTER NEW DETAILS FOR THIS BOOK  :\t";	
- cout<<"\n\n\n\t\tEnter new name Of Book      :\t";
+ cout<<"\n\n\n\t\tEnter new name Of Book                  :\t";
  cin>>name;
- cout<<"\n\t\tEnter new name Of Author    :\t";
+ cout<<"\n\t\tEnter new name Of Author                :\t";
  cin>>author;
  cout<<"\n\t\tEnter new value of number Of Copies     :\t";
  cin>>a;
@@ -236,7 +236,6 @@ int main()
             cin>>name1;
 	        while(file.read(reinterpret_cast<char *>(&b),sizeof(book)))
 	        {
-	        	cout<<name1<<b.name<<endl;
 		      if(strcmp(name1,b.name)==0)
 		      {
 			    int pos;
@@ -252,11 +251,70 @@ int main()
 	        file.close();
 	        if(flag==false)
 	        cout<<"\nThis book is not found"<<endl;
-			
+	        char ans;
+		    cout<<"Do you want to continue(y/n)"<<endl;
+		    cin>>ans;
+		    if(ans=='Y' || ans=='y')
+		    goto z;
+		    else
+		    break;	
 	    }	
-	    	
-	      
-        
+	    
+	    
+	    case 5:
+	    {
+	        bool flag=false;
+	        book b;
+	        char name1[20];
+            ifstream fin;
+            ofstream fout;
+            fin.open("book.dat",ios::binary);
+            fout.open("temp.dat",ios::binary);
+            if(!fin)
+            {
+    	        cout<<"\nError in opening of record file"<<endl;
+    	        break;
+	        }
+	        cout<<"\n\n\n          Enter book name whose record you want to delete  :";
+	        fflush(stdin);
+            cin>>name1;
+	        fin.seekg(0,ios::beg);
+	        while(fin.read(reinterpret_cast<char *>(&b),sizeof(book)))
+	        {
+		      if(strcmp(name1,b.name)==0)
+		      {
+			    flag=true;
+		      }
+	          if(strcmp(name1,b.name)!=0)
+		      {
+			    fout.write(reinterpret_cast<char *>(&b),sizeof(book));
+		      }
+	       }
+	       fin.close();
+	       fout.close();
+	       remove("book.dat");
+           rename("Temp.dat","book.dat");
+	       if(flag==true)
+	       {
+		       cout<<"\nBook record deleted"<<endl;
+	       }
+	       else
+	       {
+		       cout<<"\nBook record not found"<<endl;
+	       }
+	       char ans;
+		   cout<<"Do you want to continue(y/n)"<<endl;
+		   cin>>ans;
+		   if(ans=='Y' || ans=='y')
+		   goto z;
+		   else
+		   break;	
+		}
+		
+		
+		
+            
+			
 	}
   
 	return 0;
