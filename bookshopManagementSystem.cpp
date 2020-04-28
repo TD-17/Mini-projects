@@ -312,7 +312,106 @@ int main()
 		}
 		
 		
-		
+		case 6:
+		{
+			int i,x,y;  
+			initwindow(800,800);
+			setcolor(5);
+			for (i=0; i<140; i++) 
+            { 
+               arc(500, 690, 50, 180,i+550);
+			   if(i==20)
+			    setcolor(1);
+			   if(i==40)
+			    setcolor(9);
+			   if(i==60)
+			    setcolor(2);
+			   if(i==80)
+			    setcolor(14);
+			   if(i==100)
+			    setcolor(11);
+			   if(i==120)
+			    setcolor(4);  
+			   delay(10);
+				  
+            } 
+			setcolor(WHITE);
+			x=400;
+			y=300;
+	        circle(x,y,60);
+	        setfillstyle(SOLID_FILL,WHITE);
+	        floodfill(x,y,WHITE);
+	        setfillstyle(SOLID_FILL,BLACK);
+	        fillellipse(x-25,y-25,12,12);
+	        fillellipse(x+25,y-25,12,12);
+	        setfillstyle(SOLID_FILL,WHITE);
+	        fillellipse(x-25,y-25,3,3);
+	        fillellipse(x+25,y-25,3,3);
+	        setcolor(BLACK);
+	        arc(x,y+20,180,360,20);
+            setcolor(3);
+            settextstyle(10,0,7);
+            
+			setcolor(WHITE);   
+			x=400;
+			y=425;                   
+	        circle(x,y,75);
+	        setfillstyle(SOLID_FILL,WHITE);
+	        floodfill(x,y,WHITE);
+	        setcolor(WHITE); 
+            x=355;
+            y=245;                   
+	        circle(x,y,20);
+	        setfillstyle(SOLID_FILL,WHITE);
+	        floodfill(x,y,WHITE);
+	        setcolor(WHITE); 
+            x=445;
+            y=245;                   
+	        circle(x,y,20);
+	        setfillstyle(SOLID_FILL,WHITE);
+	        floodfill(x,y,WHITE);
+	        setcolor(BLACK); 
+            x=445;
+            y=247;                   
+	        circle(x,y,14);
+	        setfillstyle(SOLID_FILL,BLACK);
+	        floodfill(x,y,BLACK);
+	        setcolor(BLACK); 
+            x=355;
+            y=247;                   
+	        circle(x,y,14);
+	        setfillstyle(SOLID_FILL,BLACK);
+	        floodfill(x,y,BLACK);
+	        x=400;
+			y=300;
+			delay(1500);
+			setcolor(WHITE);
+	        setfillstyle(SOLID_FILL,WHITE);
+	        fillellipse(x-25,y-25,12,12);
+	        fillellipse(x+25,y-25,12,12);
+	        setcolor(BLACK);
+	        arc(x-25,y-25,180,360,10);
+	        arc(x+25,y-25,180,360,10);
+	        
+	        	       
+            setcolor(3);
+            settextstyle(10,0,7);
+            outtextxy(35,670,"THANKS FOR VISITING");
+        	
+			setcolor(BLACK);	
+			delay(2000);
+			setfillstyle(SOLID_FILL,BLACK);
+	        fillellipse(x-25,y-25,12,12);
+	        fillellipse(x+25,y-25,12,12);
+	        setfillstyle(SOLID_FILL,WHITE);
+	        fillellipse(x-25,y-25,3,3);
+	        fillellipse(x+25,y-25,3,3);
+	        setcolor(3);
+	        line(30, 740 , 760 , 740);
+	
+
+            getch();
+		}
             
 			
 	}
